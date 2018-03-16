@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.dao.BikeInfoMapper">
+	<resultMap id="BaseResultMap" type="com.sys.model.BikeInfo">
+		<id column="bikeId" jdbcType="VARCHAR" property="bikeid" />
+		<result column="bikeName" jdbcType="VARCHAR" property="bikename" />
+		<result column="bikeModel" jdbcType="VARCHAR" property="bikemodel" />
+		<result column="bikeType" jdbcType="CHAR" property="biketype" />
+		<result column="bikeAmount" jdbcType="BIGINT" property="bikeamount" />
+		<result column="bikeIcon" jdbcType="VARCHAR" property="bikeicon" />
+		<result column="rentUnitPrice" jdbcType="DOUBLE" property="rentunitprice" />
+		<result column="edttime" jdbcType="TIMESTAMP" property="edttime" />
+		<result column="isUsing" jdbcType="CHAR" property="isusing" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		bikeId, bikeName, bikeModel, bikeType, bikeAmount, bikeIcon, rentUnitPrice,
+		edttime,
+		isUsing
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bike_info
+		where bikeId = #{bikeid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from bike_info
+		where bikeId = #{bikeid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sys.model.BikeInfo">
+		insert into bike_info (bikeId, bikeName, bikeModel,
+		bikeType, bikeAmount, bikeIcon,
+		rentUnitPrice, edttime, isUsing
+		)
+		values (#{bikeid,jdbcType=VARCHAR}, #{bikename,jdbcType=VARCHAR},
+		#{bikemodel,jdbcType=VARCHAR},
+		#{biketype,jdbcType=CHAR}, #{bikeamount,jdbcType=BIGINT}, #{bikeicon,jdbcType=VARCHAR},
+		#{rentunitprice,jdbcType=DOUBLE}, #{edttime,jdbcType=TIMESTAMP},
+		#{isusing,jdbcType=CHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sys.model.BikeInfo">
+		insert into bike_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bikeid != null">
+				bikeId,
+			</if>
+			<if test="bikename != null">
+				bikeName,
+			</if>
+			<if test="bikemodel != null">
+				bikeModel,
+			</if>
+			<if test="biketype != null">
+				bikeType,
+			</if>
+			<if test="bikeamount != null">
+				bikeAmount,
+			</if>
+			<if test="bikeicon != null">
+				bikeIcon,
+			</if>
+			<if test="rentunitprice != null">
+				rentUnitPrice,
+			</if>
+			<if test="edttime != null">
+				edttime,
+			</if>
+			<if test="isusing != null">
+				isUsing,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bikeid != null">
+				#{bikeid,jdbcType=VARCHAR},
+			</if>
+			<if test="bikename != null">
+				#{bikename,jdbcType=VARCHAR},
+			</if>
+			<if test="bikemodel != null">
+				#{bikemodel,jdbcType=VARCHAR},
+			</if>
+			<if test="biketype != null">
+				#{biketype,jdbcType=CHAR},
+			</if>
+			<if test="bikeamount != null">
+				#{bikeamount,jdbcType=BIGINT},
+			</if>
+			<if test="bikeicon != null">
+				#{bikeicon,jdbcType=VARCHAR},
+			</if>
+			<if test="rentunitprice != null">
+				#{rentunitprice,jdbcType=DOUBLE},
+			</if>
+			<if test="edttime != null">
+				#{edttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isusing != null">
+				#{isusing,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sys.model.BikeInfo">
+		update bike_info
+		<set>
+			<if test="bikename != null">
+				bikeName = #{bikename,jdbcType=VARCHAR},
+			</if>
+			<if test="bikemodel != null">
+				bikeModel = #{bikemodel,jdbcType=VARCHAR},
+			</if>
+			<if test="biketype != null">
+				bikeType = #{biketype,jdbcType=CHAR},
+			</if>
+			<if test="bikeamount != null">
+				bikeAmount = #{bikeamount,jdbcType=BIGINT},
+			</if>
+			<if test="bikeicon != null">
+				bikeIcon = #{bikeicon,jdbcType=VARCHAR},
+			</if>
+			<if test="rentunitprice != null">
+				rentUnitPrice = #{rentunitprice,jdbcType=DOUBLE},
+			</if>
+			<if test="edttime != null">
+				edttime = #{edttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isusing != null">
+				isUsing = #{isusing,jdbcType=CHAR},
+			</if>
+		</set>
+		where bikeId = #{bikeid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sys.model.BikeInfo">
+		update bike_info
+		set bikeName = #{bikename,jdbcType=VARCHAR},
+		bikeModel = #{bikemodel,jdbcType=VARCHAR},
+		bikeType = #{biketype,jdbcType=CHAR},
+		bikeAmount = #{bikeamount,jdbcType=BIGINT},
+		bikeIcon = #{bikeicon,jdbcType=VARCHAR},
+		rentUnitPrice = #{rentunitprice,jdbcType=DOUBLE},
+		edttime = #{edttime,jdbcType=TIMESTAMP},
+		isUsing = #{isusing,jdbcType=CHAR}
+		where bikeId = #{bikeid,jdbcType=VARCHAR}
+	</update>
+</mapper>

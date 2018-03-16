@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.dao.SysUserInfoMapper">
+	<resultMap id="BaseResultMap" type="com.sys.model.SysUserInfo">
+		<id column="userId" jdbcType="VARCHAR" property="userid" />
+		<result column="nickname" jdbcType="VARCHAR" property="nickname" />
+		<result column="phoneNumber" jdbcType="VARCHAR" property="phonenumber" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="userName" jdbcType="VARCHAR" property="username" />
+		<result column="idCardNo" jdbcType="VARCHAR" property="idcardno" />
+		<result column="sex" jdbcType="CHAR" property="sex" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="birthday" jdbcType="DATE" property="birthday" />
+		<result column="registerDate" jdbcType="TIMESTAMP" property="registerdate" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		userId, nickname, phoneNumber, password, userName,
+		idCardNo, sex, address,
+		birthday,
+		registerDate
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user_info
+		where userId = #{userid,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_user_info
+		where userId = #{userid,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.sys.model.SysUserInfo">
+		insert into sys_user_info
+		(userId, nickname, phoneNumber,
+		password, userName, idCardNo,
+		sex,
+		address, birthday, registerDate
+		)
+		values (#{userid,jdbcType=VARCHAR},
+		#{nickname,jdbcType=VARCHAR},
+		#{phonenumber,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+		#{idcardno,jdbcType=VARCHAR},
+		#{sex,jdbcType=CHAR},
+		#{address,jdbcType=VARCHAR},
+		#{birthday,jdbcType=DATE},
+		#{registerdate,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	
+	<insert id="insertSelective" parameterType="com.sys.model.SysUserInfo">
+		insert into sys_user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userid != null">
+				userId,
+			</if>
+			<if test="nickname != null">
+				nickname,
+			</if>
+			<if test="phonenumber != null">
+				phoneNumber,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="username != null">
+				userName,
+			</if>
+			<if test="idcardno != null">
+				idCardNo,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="registerdate != null">
+				registerDate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				#{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="phonenumber != null">
+				#{phonenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="idcardno != null">
+				#{idcardno,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="registerdate != null">
+				#{registerdate,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysUserInfo">
+		update sys_user_info
+		<set>
+			<if test="nickname != null">
+				nickname = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="phonenumber != null">
+				phoneNumber = #{phonenumber,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				userName = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="idcardno != null">
+				idCardNo = #{idcardno,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=CHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="registerdate != null">
+				registerDate = #{registerdate,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where userId = #{userid,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.sys.model.SysUserInfo">
+		update
+		sys_user_info
+		set nickname = #{nickname,jdbcType=VARCHAR},
+		phoneNumber =
+		#{phonenumber,jdbcType=VARCHAR},
+		password =
+		#{password,jdbcType=VARCHAR},
+		userName = #{username,jdbcType=VARCHAR},
+		idCardNo = #{idcardno,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=CHAR},
+		address = #{address,jdbcType=VARCHAR},
+		birthday =
+		#{birthday,jdbcType=DATE},
+		registerDate =
+		#{registerdate,jdbcType=TIMESTAMP}
+		where userId =
+		#{userid,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 根据手机号和密码查询用户信息 -->
+	<select id="selectUsreInfoByPhonenumberAndPassword" parameterType="com.sys.model.SysUserInfo" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user_info
+		where phoneNumber = #{phonenumber,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询当前用户最大编号 -->
+	<select id="selectMaxId" resultType="java.lang.String">
+		select max(userId) as userId from sys_user_info
+	</select>
+</mapper>

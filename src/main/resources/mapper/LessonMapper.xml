@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sys.dao.LessonMapper" >
+  <resultMap id="BaseResultMap" type="com.sys.model.Lesson" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pId" property="pid" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="typeName" property="typeName" jdbcType="VARCHAR" />
+    <result column="imgUrl" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="lessonName" property="lessonName" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="des" property="des" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="DECIMAL" />
+    <result column="totalDuration" property="totalDuration" jdbcType="DECIMAL" />
+    <result column="act" property="act" jdbcType="VARCHAR" />
+    <result column="course" property="course" jdbcType="VARCHAR" />
+    <result column="audio" property="audio" jdbcType="VARCHAR" />
+    <result column="createBy" property="createBy" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="updateBy" property="updateBy" jdbcType="VARCHAR" />
+    <result column="updateDate" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id,pId,grade,typeName,imgUrl,lessonName,url,des,duration,totalDuration,act,course,audio,createBy,createDate,
+    updateBy,updateDate,remarks,delFlag
+  </sql>
+
+  <insert id="insert" parameterType="com.sys.model.Lesson" >
+    insert into xsy_lesson (id, pId, grade, 
+      typeName, imgUrl, lessonName, 
+      url, des, duration, 
+      totalDuration, act, course, 
+      audio, createBy, createDate, 
+      updateBy, updateDate, remarks, 
+      delFlag)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{typeName,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{lessonName,jdbcType=VARCHAR},
+      #{url,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}, #{duration,jdbcType=DECIMAL}, 
+      #{totalDuration,jdbcType=DECIMAL}, #{act,jdbcType=VARCHAR}, #{course,jdbcType=VARCHAR},
+      #{audio,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR},
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+
+  <select id="getStageLesson" resultMap="BaseResultMap">
+    SELECT
+     <include refid="Base_Column_List"/>
+    FROM xsy_lesson
+    WHERE pId is NULL
+  </select>
+
+  <select id="getLessonList" resultMap="BaseResultMap">
+    SELECT
+     <include refid="Base_Column_List"/>
+    FROM xsy_lesson
+    WHERE pId = #{pId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="lessonDetails" resultType="com.sys.model.Lesson">
+    SELECT
+     <include refid="Base_Column_List"/>
+    FROM xsy_lesson
+    WHERE id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="pageTrun" resultType="com.sys.model.Lesson">
+    SELECT
+     <include refid="Base_Column_List"/>
+    FROM xsy_lesson
+    WHERE pId = #{pid,jdbcType=VARCHAR} AND grade = #{grade,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.sys.model.Lesson" >
+    insert into xsy_lesson
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pId,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="typeName != null" >
+        typeName,
+      </if>
+      <if test="imgUrl != null" >
+        imgUrl,
+      </if>
+      <if test="lessonName != null" >
+        lessonName,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="des != null" >
+        des,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="totalDuration != null" >
+        totalDuration,
+      </if>
+      <if test="act != null" >
+        act,
+      </if>
+      <if test="course != null" >
+        course,
+      </if>
+      <if test="audio != null" >
+        audio,
+      </if>
+      <if test="createBy != null" >
+        createBy,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="updateBy != null" >
+        updateBy,
+      </if>
+      <if test="updateDate != null" >
+        updateDate,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="delFlag != null" >
+        delFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null" >
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="lessonName != null" >
+        #{lessonName,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null" >
+        #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=DECIMAL},
+      </if>
+      <if test="totalDuration != null" >
+        #{totalDuration,jdbcType=DECIMAL},
+      </if>
+      <if test="act != null" >
+        #{act,jdbcType=VARCHAR},
+      </if>
+      <if test="course != null" >
+        #{course,jdbcType=VARCHAR},
+      </if>
+      <if test="audio != null" >
+        #{audio,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sys.dao.HistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.sys.model.History" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="openId" property="openId" jdbcType="VARCHAR" />
+    <result column="lessonId" property="lessonId" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="DECIMAL" />
+    <result column="completionTime" property="completionTime" jdbcType="DECIMAL" />
+    <result column="finishFlag" property="finishFlag" jdbcType="INTEGER" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="updateDate" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, openId, lessonId, duration, completionTime,finishFlag, createDate, updateDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xsy_history
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getTotalTime" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+    SELECT
+    SUM(completionTime) completionTime
+    FROM xsy_history
+    WHERE openId = #{openId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getTotalDay" resultType="String" parameterType="java.lang.String">
+    SELECT COUNT(*) days FROM xsy_history WHERE openId = #{openId,jdbcType=VARCHAR} GROUP BY DATE_FORMAT(createDate,'%Y-%m-%d')
+  </select>
+
+  <select id="getWeekTime" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+    SELECT
+    SUM(completionTime) completionTime
+    FROM xsy_history
+    WHERE openId = #{openId,jdbcType=VARCHAR} AND DATE_SUB(NOW(), INTERVAL 1 WEEK) &gt;= createDate &lt;= now()
+  </select>
+
+  <select id="getThisTime" resultType="java.math.BigDecimal" parameterType="java.lang.String">
+    SELECT
+    SUM(completionTime) completionTime
+    FROM xsy_history
+    WHERE openId = #{openId,jdbcType=VARCHAR} AND createDate like CONCAT(CURDATE(),'%')
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xsy_history
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sys.model.History" >
+    insert into xsy_history (id, openId, lessonId, 
+      duration, completionTime, finishFlag, createDate,
+      updateDate)
+    values (#{id,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{lessonId,jdbcType=VARCHAR},
+      #{duration,jdbcType=DECIMAL}, #{completionTime,jdbcType=DECIMAL}, #{finishFlag,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sys.model.History" >
+    insert into xsy_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="openId != null" >
+        openId,
+      </if>
+      <if test="lessonId != null" >
+        lessonId,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="completionTime != null" >
+        completionTime,
+      </if>
+      <if test="finishFlag != null" >
+        finishFlag,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="updateDate != null" >
+        updateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="lessonId != null" >
+        #{lessonId,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=DECIMAL},
+      </if>
+      <if test="completionTime != null" >
+        #{completionTime,jdbcType=DECIMAL},
+      </if>
+      <if test="finishFlag != null" >
+        #{finishFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.History" >
+    update xsy_history
+    <set >
+      <if test="lessonId != null" >
+        openId = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="lessonId != null" >
+        lessonId = #{lessonId,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=DECIMAL},
+      </if>
+      <if test="completionTime != null" >
+        completionTime = #{completionTime,jdbcType=DECIMAL},
+      </if>
+      <if test="finishFlag != null" >
+        finishFlag = #{finishFlag,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        updateDate = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sys.model.History" >
+    update xsy_history
+    set openId = #{openId,jdbcType=VARCHAR},
+      lessonId = #{lessonId,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=DECIMAL},
+      completionTime = #{completionTime,jdbcType=DECIMAL},
+      finishFlag = #{finishFlag,jdbcType=INTEGER},
+      createDate = #{createDate,jdbcType=TIMESTAMP},
+      updateDate = #{updateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

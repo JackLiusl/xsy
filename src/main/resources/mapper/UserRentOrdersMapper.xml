@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.dao.UserRentOrdersMapper">
+	<resultMap id="BaseResultMap" type="com.sys.model.UserRentOrders">
+		<id column="orderId" jdbcType="VARCHAR" property="orderid" />
+		<result column="userId" jdbcType="VARCHAR" property="userid" />
+		<result column="bikeId" jdbcType="VARCHAR" property="bikeid" />
+		<result column="isFinish" jdbcType="CHAR" property="isfinish" />
+		<result column="isPay" jdbcType="CHAR" property="ispay" />
+		<result column="startTime" jdbcType="TIMESTAMP" property="starttime" />
+		<result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
+		<result column="rentingTime" jdbcType="BIGINT" property="rentingtime" />
+		<result column="amount" jdbcType="DOUBLE" property="amount" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		orderId, userId, bikeId, isFinish, isPay, startTime, endTime, rentingTime,
+		amount
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_rent_orders
+		where orderId = #{orderid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from user_rent_orders
+		where orderId = #{orderid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sys.model.UserRentOrders">
+		insert into user_rent_orders (orderId, userId, bikeId,
+		isFinish, isPay, startTime,
+		endTime, rentingTime, amount
+		)
+		values (#{orderid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},
+		#{bikeid,jdbcType=VARCHAR},
+		#{isfinish,jdbcType=CHAR}, #{ispay,jdbcType=CHAR}, #{starttime,jdbcType=TIMESTAMP},
+		#{endtime,jdbcType=TIMESTAMP}, #{rentingtime,jdbcType=BIGINT},
+		#{amount,jdbcType=DOUBLE}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sys.model.UserRentOrders">
+		insert into user_rent_orders
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderid != null">
+				orderId,
+			</if>
+			<if test="userid != null">
+				userId,
+			</if>
+			<if test="bikeid != null">
+				bikeId,
+			</if>
+			<if test="isfinish != null">
+				isFinish,
+			</if>
+			<if test="ispay != null">
+				isPay,
+			</if>
+			<if test="starttime != null">
+				startTime,
+			</if>
+			<if test="endtime != null">
+				endTime,
+			</if>
+			<if test="rentingtime != null">
+				rentingTime,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderid != null">
+				#{orderid,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="bikeid != null">
+				#{bikeid,jdbcType=VARCHAR},
+			</if>
+			<if test="isfinish != null">
+				#{isfinish,jdbcType=CHAR},
+			</if>
+			<if test="ispay != null">
+				#{ispay,jdbcType=CHAR},
+			</if>
+			<if test="starttime != null">
+				#{starttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endtime != null">
+				#{endtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rentingtime != null">
+				#{rentingtime,jdbcType=BIGINT},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sys.model.UserRentOrders">
+		update user_rent_orders
+		<set>
+			<if test="userid != null">
+				userId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="bikeid != null">
+				bikeId = #{bikeid,jdbcType=VARCHAR},
+			</if>
+			<if test="isfinish != null">
+				isFinish = #{isfinish,jdbcType=CHAR},
+			</if>
+			<if test="ispay != null">
+				isPay = #{ispay,jdbcType=CHAR},
+			</if>
+			<if test="starttime != null">
+				startTime = #{starttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endtime != null">
+				endTime = #{endtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="rentingtime != null">
+				rentingTime = #{rentingtime,jdbcType=BIGINT},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=DOUBLE},
+			</if>
+		</set>
+		where orderId = #{orderid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sys.model.UserRentOrders">
+		update user_rent_orders
+		set userId = #{userid,jdbcType=VARCHAR},
+		bikeId = #{bikeid,jdbcType=VARCHAR},
+		isFinish = #{isfinish,jdbcType=CHAR},
+		isPay = #{ispay,jdbcType=CHAR},
+		startTime = #{starttime,jdbcType=TIMESTAMP},
+		endTime = #{endtime,jdbcType=TIMESTAMP},
+		rentingTime = #{rentingtime,jdbcType=BIGINT},
+		amount = #{amount,jdbcType=DOUBLE}
+		where orderId = #{orderid,jdbcType=VARCHAR}
+	</update>
+</mapper>

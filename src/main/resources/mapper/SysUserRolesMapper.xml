@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.dao.SysUserRolesMapper">
+	<resultMap id="BaseResultMap" type="com.sys.model.SysUserRoles">
+		<id column="roleId" jdbcType="VARCHAR" property="roleid" />
+		<result column="userId" jdbcType="VARCHAR" property="userid" />
+		<result column="roleName" jdbcType="VARCHAR" property="rolename" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		roleId, userId, roleName
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_user_roles
+		where roleId = #{roleid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_user_roles
+		where roleId = #{roleid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sys.model.SysUserRoles">
+		insert into sys_user_roles
+		(roleId, userId, roleName
+		)
+		values (#{roleid,jdbcType=VARCHAR},
+		#{userid,jdbcType=VARCHAR},
+		#{rolename,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sys.model.SysUserRoles">
+		insert into sys_user_roles
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleid != null">
+				roleId,
+			</if>
+			<if test="userid != null">
+				userId,
+			</if>
+			<if test="rolename != null">
+				roleName,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleid != null">
+				#{roleid,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="rolename != null">
+				#{rolename,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysUserRoles">
+		update sys_user_roles
+		<set>
+			<if test="userid != null">
+				userId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="rolename != null">
+				roleName = #{rolename,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where roleId = #{roleid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sys.model.SysUserRoles">
+		update
+		sys_user_roles
+		set userId = #{userid,jdbcType=VARCHAR},
+		roleName =
+		#{rolename,jdbcType=VARCHAR}
+		where roleId = #{roleid,jdbcType=VARCHAR}
+	</update>
+</mapper>

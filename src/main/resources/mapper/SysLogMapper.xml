@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.dao.SysLogMapper">
+	<resultMap id="BaseResultMap" type="com.sys.model.SysLog">
+		<id column="logId" jdbcType="VARCHAR" property="logid" />
+		<result column="userId" jdbcType="VARCHAR" property="userid" />
+		<result column="dicCode" jdbcType="VARCHAR" property="diccode" />
+		<result column="logContent" jdbcType="VARCHAR" property="logcontent" />
+		<result column="operationTime" jdbcType="TIMESTAMP" property="operationtime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		logId, userId, dicCode, logContent, operationTime
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_log
+		where logId = #{logid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_log
+		where logId = #{logid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sys.model.SysLog">
+		insert into sys_log (logId,
+		userId, dicCode,
+		logContent, operationTime)
+		values
+		(#{logid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},
+		#{diccode,jdbcType=VARCHAR},
+		#{logcontent,jdbcType=VARCHAR},
+		#{operationtime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sys.model.SysLog">
+		insert into sys_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="logid != null">
+				logId,
+			</if>
+			<if test="userid != null">
+				userId,
+			</if>
+			<if test="diccode != null">
+				dicCode,
+			</if>
+			<if test="logcontent != null">
+				logContent,
+			</if>
+			<if test="operationtime != null">
+				operationTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="logid != null">
+				#{logid,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="diccode != null">
+				#{diccode,jdbcType=VARCHAR},
+			</if>
+			<if test="logcontent != null">
+				#{logcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="operationtime != null">
+				#{operationtime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysLog">
+		update sys_log
+		<set>
+			<if test="userid != null">
+				userId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="diccode != null">
+				dicCode = #{diccode,jdbcType=VARCHAR},
+			</if>
+			<if test="logcontent != null">
+				logContent = #{logcontent,jdbcType=VARCHAR},
+			</if>
+			<if test="operationtime != null">
+				operationTime = #{operationtime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where logId = #{logid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sys.model.SysLog">
+		update sys_log
+		set
+		userId = #{userid,jdbcType=VARCHAR},
+		dicCode =
+		#{diccode,jdbcType=VARCHAR},
+		logContent =
+		#{logcontent,jdbcType=VARCHAR},
+		operationTime =
+		#{operationtime,jdbcType=TIMESTAMP}
+		where logId =
+		#{logid,jdbcType=VARCHAR}
+	</update>
+</mapper>

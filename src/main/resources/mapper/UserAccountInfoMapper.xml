@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.dao.UserAccountInfoMapper">
+	<resultMap id="BaseResultMap" type="com.sys.model.UserAccountInfo">
+		<id column="accountId" jdbcType="VARCHAR" property="accountid" />
+		<result column="userId" jdbcType="VARCHAR" property="userid" />
+		<result column="accountSum" jdbcType="DOUBLE" property="accountsum" />
+		<result column="rentingForegift" jdbcType="DOUBLE" property="rentingforegift" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		accountId, userId, accountSum, rentingForegift
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user_account_info
+		where accountId = #{accountid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		user_account_info
+		where accountId = #{accountid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sys.model.UserAccountInfo">
+		insert into user_account_info
+		(accountId, userId, accountSum,
+		rentingForegift)
+		values
+		(#{accountid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},
+		#{accountsum,jdbcType=DOUBLE},
+		#{rentingforegift,jdbcType=DOUBLE})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sys.model.UserAccountInfo">
+		insert into user_account_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="accountid != null">
+				accountId,
+			</if>
+			<if test="userid != null">
+				userId,
+			</if>
+			<if test="accountsum != null">
+				accountSum,
+			</if>
+			<if test="rentingforegift != null">
+				rentingForegift,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="accountid != null">
+				#{accountid,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="accountsum != null">
+				#{accountsum,jdbcType=DOUBLE},
+			</if>
+			<if test="rentingforegift != null">
+				#{rentingforegift,jdbcType=DOUBLE},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sys.model.UserAccountInfo">
+		update user_account_info
+		<set>
+			<if test="userid != null">
+				userId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="accountsum != null">
+				accountSum = #{accountsum,jdbcType=DOUBLE},
+			</if>
+			<if test="rentingforegift != null">
+				rentingForegift = #{rentingforegift,jdbcType=DOUBLE},
+			</if>
+		</set>
+		where accountId = #{accountid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sys.model.UserAccountInfo">
+		update
+		user_account_info
+		set userId = #{userid,jdbcType=VARCHAR},
+		accountSum =
+		#{accountsum,jdbcType=DOUBLE},
+		rentingForegift =
+		#{rentingforegift,jdbcType=DOUBLE}
+		where accountId =
+		#{accountid,jdbcType=VARCHAR}
+	</update>
+</mapper>

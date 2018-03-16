@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.dao.SysDicMapper">
+	<resultMap id="BaseResultMap" type="com.sys.model.SysDic">
+		<id column="dicId" jdbcType="VARCHAR" property="dicid" />
+		<result column="dicTypeCode" jdbcType="VARCHAR" property="dictypecode" />
+		<result column="dicCode" jdbcType="VARCHAR" property="diccode" />
+		<result column="dicName" jdbcType="VARCHAR" property="dicname" />
+		<result column="isUsing" jdbcType="CHAR" property="isusing" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		dicId, dicTypeCode, dicCode, dicName, isUsing
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sys_dic
+		where dicId = #{dicid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		sys_dic
+		where dicId = #{dicid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sys.model.SysDic">
+		insert into sys_dic (dicId,
+		dicTypeCode, dicCode,
+		dicName, isUsing)
+		values
+		(#{dicid,jdbcType=VARCHAR}, #{dictypecode,jdbcType=VARCHAR},
+		#{diccode,jdbcType=VARCHAR},
+		#{dicname,jdbcType=VARCHAR},
+		#{isusing,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sys.model.SysDic">
+		insert into sys_dic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dicid != null">
+				dicId,
+			</if>
+			<if test="dictypecode != null">
+				dicTypeCode,
+			</if>
+			<if test="diccode != null">
+				dicCode,
+			</if>
+			<if test="dicname != null">
+				dicName,
+			</if>
+			<if test="isusing != null">
+				isUsing,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dicid != null">
+				#{dicid,jdbcType=VARCHAR},
+			</if>
+			<if test="dictypecode != null">
+				#{dictypecode,jdbcType=VARCHAR},
+			</if>
+			<if test="diccode != null">
+				#{diccode,jdbcType=VARCHAR},
+			</if>
+			<if test="dicname != null">
+				#{dicname,jdbcType=VARCHAR},
+			</if>
+			<if test="isusing != null">
+				#{isusing,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysDic">
+		update sys_dic
+		<set>
+			<if test="dictypecode != null">
+				dicTypeCode = #{dictypecode,jdbcType=VARCHAR},
+			</if>
+			<if test="diccode != null">
+				dicCode = #{diccode,jdbcType=VARCHAR},
+			</if>
+			<if test="dicname != null">
+				dicName = #{dicname,jdbcType=VARCHAR},
+			</if>
+			<if test="isusing != null">
+				isUsing = #{isusing,jdbcType=CHAR},
+			</if>
+		</set>
+		where dicId = #{dicid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sys.model.SysDic">
+		update sys_dic
+		set
+		dicTypeCode = #{dictypecode,jdbcType=VARCHAR},
+		dicCode =
+		#{diccode,jdbcType=VARCHAR},
+		dicName = #{dicname,jdbcType=VARCHAR},
+		isUsing = #{isusing,jdbcType=CHAR}
+		where dicId =
+		#{dicid,jdbcType=VARCHAR}
+	</update>
+</mapper>

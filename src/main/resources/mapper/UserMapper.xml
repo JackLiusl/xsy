@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sys.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.sys.model.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="openId" property="openId" jdbcType="VARCHAR" />
+    <result column="passWord" property="passWord" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="photo" property="photo" jdbcType="VARCHAR" />
+    <result column="loginFlag" property="loginFlag" jdbcType="VARCHAR" />
+    <result column="createBy" property="createBy" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="updateBy" property="updateBy" jdbcType="VARCHAR" />
+    <result column="updateDate" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, openId, passWord, name, email, phone, mobile, photo, loginFlag, createBy, createDate, 
+    updateBy, updateDate, remarks, delFlag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xsy_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from xsy_user
+    where openId = #{openId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xsy_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sys.model.User" >
+    insert into xsy_user (id, openId, passWord, 
+      name, email, phone, 
+      mobile, photo, loginFlag, 
+      createBy, createDate, updateBy, 
+      updateDate, remarks, delFlag
+      )
+    values (#{id,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{loginFlag,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sys.model.User" >
+    insert into xsy_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="openid != null" >
+        openId,
+      </if>
+      <if test="password != null" >
+        passWord,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+      <if test="loginflag != null" >
+        loginFlag,
+      </if>
+      <if test="createby != null" >
+        createBy,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="updateby != null" >
+        updateBy,
+      </if>
+      <if test="updatedate != null" >
+        updateDate,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="delflag != null" >
+        delFlag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="passWord != null" >
+        #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="loginFlag != null" >
+        #{loginFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.User" >
+    update xsy_user
+    <set >
+      <if test="openid != null" >
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        passWord = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="loginflag != null" >
+        loginFlag = #{loginflag,jdbcType=VARCHAR},
+      </if>
+      <if test="createby != null" >
+        createBy = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateby != null" >
+        updateBy = #{updateby,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null" >
+        delFlag = #{delflag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sys.model.User" >
+    update xsy_user
+    set openId = #{openid,jdbcType=VARCHAR},
+      passWord = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      loginFlag = #{loginflag,jdbcType=VARCHAR},
+      createBy = #{createby,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      updateBy = #{updateby,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      delFlag = #{delflag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
